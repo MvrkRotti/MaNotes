@@ -60,16 +60,64 @@
 		8AD94CC52C9825E2001910D7 /* Notes(pet) */ = {
 			isa = PBXGroup;
 			children = (
-				8AD94CC62C9825E2001910D7 /* AppDelegate.swift */,
-				8AD94CC82C9825E2001910D7 /* SceneDelegate.swift */,
-				8AD94CCA2C9825E2001910D7 /* ViewController.swift */,
-				8AD94CCF2C9825E5001910D7 /* Assets.xcassets */,
-				8AD94CD12C9825E5001910D7 /* LaunchScreen.storyboard */,
+				8AD94CE82C9B0963001910D7 /* Recourses */,
+				8AD94CE72C9B093F001910D7 /* Helpers */,
+				8AD94CE62C9B0922001910D7 /* Application */,
+				8AD94CE52C9B08EF001910D7 /* ViewController */,
+				8AD94CE42C9B08D6001910D7 /* Model */,
+				8AD94CE32C9B08C8001910D7 /* ViewModel */,
 				8AD94CD42C9825E5001910D7 /* Info.plist */,
-				8AD94CDF2C982850001910D7 /* Note.swift */,
-				8AD94CE12C982AE3001910D7 /* CoreDataManager.swift */,
 			);
 			path = "Notes(pet)";
+			sourceTree = "<group>";
+		};
+		8AD94CE32C9B08C8001910D7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8AD94CE42C9B08D6001910D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8AD94CDF2C982850001910D7 /* Note.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8AD94CE52C9B08EF001910D7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8AD94CCA2C9825E2001910D7 /* ViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		8AD94CE62C9B0922001910D7 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				8AD94CC62C9825E2001910D7 /* AppDelegate.swift */,
+				8AD94CC82C9825E2001910D7 /* SceneDelegate.swift */,
+				8AD94CD12C9825E5001910D7 /* LaunchScreen.storyboard */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		8AD94CE72C9B093F001910D7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8AD94CE12C982AE3001910D7 /* CoreDataManager.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		8AD94CE82C9B0963001910D7 /* Recourses */ = {
+			isa = PBXGroup;
+			children = (
+				8AD94CCF2C9825E5001910D7 /* Assets.xcassets */,
+			);
+			path = Recourses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
