@@ -16,7 +16,7 @@ class BottomSideButton: UIButton {
     
     init(type: SideButtonType) {
         super.init(frame: .zero)
-        
+        makeAnimate(self)
         configureButton(for: type)
     }
     
@@ -35,5 +35,6 @@ private extension BottomSideButton {
         }
         
         contentHorizontalAlignment = .center
+        makeAnimate(self)
     }
 }

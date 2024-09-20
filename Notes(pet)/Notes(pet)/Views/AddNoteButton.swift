@@ -14,7 +14,7 @@ final class AddNoteButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupAppearence()
-        makeSystem(self)
+        makeAnimate(self)
         setupAction()
         
     }
@@ -38,6 +38,7 @@ private extension AddNoteButton {
         layer.borderWidth = 1
         layer.borderColor = ColorResources.black.cgColor
         self.clipsToBounds = true
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
     }
     
     @objc func addButtonDidTapped() {

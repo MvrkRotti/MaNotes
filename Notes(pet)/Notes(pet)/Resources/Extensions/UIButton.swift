@@ -7,9 +7,9 @@
 
 import UIKit
 
-extension UIView {
+extension UIButton {
     
-    func makeSystem(_ button: UIButton) {
+    func makeAnimate(_ button: UIButton) {
         button.addTarget(self, action: #selector(handleIn), for: [
             .touchDown,
             .touchDragInside
@@ -25,7 +25,7 @@ extension UIView {
     }
     
     @objc func handleIn() {
-        UIView.animate(withDuration: 0.5) { self.alpha = 0.55 }
+        UIView.animate(withDuration: 0.5) { self.alpha = 0.8 }
     }
     
     @objc func handleOut() {
