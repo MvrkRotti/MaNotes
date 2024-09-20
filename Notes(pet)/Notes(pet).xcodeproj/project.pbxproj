@@ -20,6 +20,7 @@
 		8AD94CF02C9BEF63001910D7 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD94CEF2C9BEF63001910D7 /* UIView.swift */; };
 		8AD94CF22C9BF217001910D7 /* ColorResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD94CF12C9BF217001910D7 /* ColorResources.swift */; };
 		8AD94CF42C9BF266001910D7 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD94CF32C9BF266001910D7 /* UIColor.swift */; };
+		8AD94CF62C9D6D8E001910D7 /* BottomSideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD94CF52C9D6D8E001910D7 /* BottomSideButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		8AD94CEF2C9BEF63001910D7 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		8AD94CF12C9BF217001910D7 /* ColorResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorResources.swift; sourceTree = "<group>"; };
 		8AD94CF32C9BF266001910D7 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		8AD94CF52C9D6D8E001910D7 /* BottomSideButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSideButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,12 +72,12 @@
 		8AD94CC52C9825E2001910D7 /* Notes(pet) */ = {
 			isa = PBXGroup;
 			children = (
-				8AD94CEB2C9B336A001910D7 /* Views */,
+				8AD94CE62C9B0922001910D7 /* Application */,
 				8AD94CE82C9B0963001910D7 /* Resources */,
 				8AD94CE72C9B093F001910D7 /* Helpers */,
-				8AD94CE62C9B0922001910D7 /* Application */,
-				8AD94CE52C9B08EF001910D7 /* ViewController */,
 				8AD94CE42C9B08D6001910D7 /* Model */,
+				8AD94CEB2C9B336A001910D7 /* Views */,
+				8AD94CE52C9B08EF001910D7 /* ViewController */,
 				8AD94CE32C9B08C8001910D7 /* ViewModel */,
 				8AD94CD42C9825E5001910D7 /* Info.plist */,
 			);
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				8AD94CEC2C9B337A001910D7 /* AddNoteButton.swift */,
+				8AD94CF52C9D6D8E001910D7 /* BottomSideButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				8AD94CE02C982850001910D7 /* Note.swift in Sources */,
 				8AD94CF22C9BF217001910D7 /* ColorResources.swift in Sources */,
 				8AD94CED2C9B337A001910D7 /* AddNoteButton.swift in Sources */,
+				8AD94CF62C9D6D8E001910D7 /* BottomSideButton.swift in Sources */,
 				8AD94CF42C9BF266001910D7 /* UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,7 +389,6 @@
 				INFOPLIST_FILE = "Notes(pet)/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -417,7 +420,6 @@
 				INFOPLIST_FILE = "Notes(pet)/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (

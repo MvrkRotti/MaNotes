@@ -22,6 +22,11 @@ final class AddNoteButton: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layer.cornerRadius = self.frame.height / 2
+    }
 }
 
 private extension AddNoteButton {
@@ -32,7 +37,7 @@ private extension AddNoteButton {
         
         layer.borderWidth = 1
         layer.borderColor = ColorResources.black.cgColor
-        layer.cornerRadius = self.bounds.width / 2
+        self.clipsToBounds = true
     }
     
     @objc func addButtonDidTapped() {
