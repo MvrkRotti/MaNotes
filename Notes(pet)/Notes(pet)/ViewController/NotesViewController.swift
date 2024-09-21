@@ -31,11 +31,13 @@ class NotesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.fetchNotes()
+        tableViewSetting()
         setupUI()
     }
 }
 
 private extension NotesViewController {
+    //MARK: - SetupUI
     func setupUI() {
         title = "Заметки"
         
@@ -49,7 +51,8 @@ private extension NotesViewController {
         view.addSubview(searchButton)
         
         notesList.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.left.top.right.equalToSuperview()
+            make.bottom.equalTo(bottomView.snp.top)
         }
         
         bottomView.snp.makeConstraints { make in
@@ -72,8 +75,30 @@ private extension NotesViewController {
             make.bottom.equalToSuperview().offset(-view.frame.height / 23)
             make.right.equalToSuperview().offset(-view.frame.width / 7.5)
         }
-        
-        
+    }
+    
+    //MARK: - TableVIew settings
+    func tableViewSetting() {
+        notesList.dataSource = self
+        notesList.delegate = self
+        notesList.separatorStyle = .none
+        notesList.register(NoteCell.self, forCellReuseIdentifier: NoteCell.identifier)
+    }
+}
+
+extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 15
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = notesList.dequeueReusableCell(withIdentifier: NoteCell.identifier, for: indexPath) as! NoteCell
+        cell.configureCell(with: "Hello", content: "test")
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        view.frame.height / 10
     }
 }
 
