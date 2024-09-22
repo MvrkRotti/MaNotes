@@ -17,6 +17,16 @@ class NotesViewController: UIViewController {
     private let addNoteButton = AddNoteButton()
     private let sortButton = BottomSideButton(type: .sort)
     private let searchButton = BottomSideButton(type: .search)
+    private let noDataLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Здесь пока что пусто. Самое время добавить первую заметку."
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = ColorResources.black
+        label.isHidden = true
+        return label
+    }()
     
     private let bottomView: UIView = {
         let view = UIView()
@@ -31,9 +41,19 @@ class NotesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.fetchNotes()
+        checkData()
         tableViewSetting()
         setupUI()
+        setupAction()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchNotes()
+        notesList.reloadData()
+        checkData()
+    }
+
 }
 
 private extension NotesViewController {
@@ -49,6 +69,12 @@ private extension NotesViewController {
         view.addSubview(addNoteButton)
         view.addSubview(sortButton)
         view.addSubview(searchButton)
+        view.addSubview(noDataLabel)
+        
+        noDataLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.left.right.equalToSuperview().inset(15)
+        }
         
         notesList.snp.makeConstraints { make in
             make.left.top.right.equalToSuperview()
@@ -84,17 +110,58 @@ private extension NotesViewController {
         notesList.separatorStyle = .none
         notesList.register(NoteCell.self, forCellReuseIdentifier: NoteCell.identifier)
     }
+    
+    func checkData() {
+        if viewModel.notes.isEmpty {
+            noDataLabel.isHidden = false
+            notesList.isHidden = true
+        } else {
+            noDataLabel.isHidden = true
+            notesList.isHidden = false
+        }
+    }
+    
+    func setupAction() {
+        addNoteButton.addTarget(self, action: #selector(addNote), for: .touchUpInside)
+    }
+    
+    @objc func addNote() {
+        let noteDetailVC = AddNoteViewController()
+        noteDetailVC.onNoteAdded = { [weak self] in
+            self?.viewModel.fetchNotes()
+            self?.notesList.reloadData()
+            self?.checkData()
+        }
+        navigationController?.pushViewController(noteDetailVC, animated: true)
+    }
 }
 
 extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        viewModel.notes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = notesList.dequeueReusableCell(withIdentifier: NoteCell.identifier, for: indexPath) as! NoteCell
-        cell.configureCell(with: "Hello", content: "test")
+        let note = viewModel.notes[indexPath.row]
+        if let title = note.title, let content = note.content {
+            cell.configureCell(with: title, content: content)
+        } else {
+            cell.configureCell(with: "", content: "")
+        }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: NoteCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewModel.deleteNote(at: indexPath.row)
+            notesList.deleteRows(at: [indexPath], with: .automatic)
+            checkData()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Удалить"
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
