@@ -69,6 +69,7 @@ private extension NoteCell {
         contentLabel.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-8)
             make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
         }
     }
     

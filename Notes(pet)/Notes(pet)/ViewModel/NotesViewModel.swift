@@ -8,6 +8,11 @@
 import UIKit
 import CoreData
 
+enum SortType {
+    case title
+    case date
+}
+
 class NotesViewModel {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistancContainer.viewContext
     var notes: [Note] = []
@@ -30,5 +35,14 @@ class NotesViewModel {
         context.delete(noteToDelete)
         saveContext()
         fetchNotes()
+    }
+    
+    func sortNotes(by type: SortType) {
+        switch type {
+        case .title:
+            notes.sort { $0.title?.localizedCaseInsensitiveCompare($1.title ?? "") == .orderedAscending }
+        case .date:
+            notes.sort { $0.createdDate ?? Date() < $1.createdDate ?? Date() }
+        }
     }
 }

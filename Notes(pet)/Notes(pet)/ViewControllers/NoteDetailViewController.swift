@@ -16,7 +16,6 @@ final class NoteDetailViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.boldSystemFont(ofSize: 24)
-        textField.borderStyle = .roundedRect
         textField.placeholder = "Название/заголовок"
         return textField
     }()
@@ -105,7 +104,8 @@ private extension NoteDetailViewController {
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .short
-            dateLabel.text = "\(dateFormatter.string(from: createdDate))"
+            dateFormatter.locale = Locale.current
+            dateLabel.text = (dateFormatter.string(from: createdDate))
         } else {
             dateLabel.text = ""
         }

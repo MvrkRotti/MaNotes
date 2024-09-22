@@ -123,6 +123,7 @@ private extension NotesViewController {
     
     func setupAction() {
         addNoteButton.addTarget(self, action: #selector(addNote), for: .touchUpInside)
+        sortButton.addTarget(self, action: #selector(showSortOptions), for: .touchUpInside)
     }
     
     @objc func addNote() {
@@ -133,6 +134,28 @@ private extension NotesViewController {
             self?.checkData()
         }
         navigationController?.pushViewController(noteDetailVC, animated: true)
+    }
+    
+    @objc func showSortOptions() {
+        let actionSheet = UIAlertController(title: "Сортировать заметки", message: "Выберите способ сортировки", preferredStyle: .actionSheet)
+        
+        let sortByTitleAction = UIAlertAction(title: "По алфавиту", style: .default) { [weak self] _ in
+            self?.viewModel.sortNotes(by: .title)
+            self?.notesList.reloadData()
+        }
+        
+        let sortByDateAction = UIAlertAction(title: "По дате создания", style: .default) { [weak self] _ in
+            self?.viewModel.sortNotes(by: .date)
+            self?.notesList.reloadData()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        
+        actionSheet.addAction(sortByDateAction)
+        actionSheet.addAction(sortByTitleAction)
+        actionSheet.addAction(cancelAction)
+        
+        present(actionSheet, animated: true)
     }
 }
 
@@ -150,6 +173,14 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
             cell.configureCell(with: "", content: "")
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        notesList.deselectRow(at: indexPath, animated: true)
+        let note = viewModel.notes[indexPath.row]
+        let detailVC = NoteDetailViewController()
+        detailVC.note = note
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: NoteCell.EditingStyle, forRowAt indexPath: IndexPath) {

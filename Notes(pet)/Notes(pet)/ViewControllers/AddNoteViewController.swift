@@ -16,7 +16,6 @@ final class AddNoteViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.boldSystemFont(ofSize: 24)
-        textField.borderStyle = .roundedRect
         textField.placeholder = "Название/заголовок"
         return textField
     }()
