@@ -37,13 +37,25 @@ class NotesViewController: UIViewController {
         return view
     }()
     
+    private let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Поиск"
+        searchBar.isHidden = true
+        searchBar.layer.cornerRadius = 15
+        searchBar.searchTextField.leftView = nil
+        searchBar.backgroundImage = UIImage()
+        return searchBar
+    }()
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.fetchNotes()
         checkData()
         tableViewSetting()
+        searchBar.delegate = self
         setupUI()
+        setupLayout()
         setupAction()
     }
     
@@ -70,14 +82,18 @@ private extension NotesViewController {
         view.addSubview(sortButton)
         view.addSubview(searchButton)
         view.addSubview(noDataLabel)
-        
+        view.addSubview(searchBar)
+    }
+    
+    func setupLayout() {
         noDataLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.left.right.equalToSuperview().inset(15)
         }
         
         notesList.snp.makeConstraints { make in
-            make.left.top.right.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.bottom.equalTo(bottomView.snp.top)
         }
         
@@ -124,6 +140,7 @@ private extension NotesViewController {
     func setupAction() {
         addNoteButton.addTarget(self, action: #selector(addNote), for: .touchUpInside)
         sortButton.addTarget(self, action: #selector(showSortOptions), for: .touchUpInside)
+        searchButton.addTarget(self, action: #selector(toggleSearchBaс), for: .touchUpInside)
     }
     
     @objc func addNote() {
@@ -157,21 +174,53 @@ private extension NotesViewController {
         
         present(actionSheet, animated: true)
     }
+    
+    @objc private func toggleSearchBaс() {
+        if searchBar.superview == nil {
+            view.addSubview(searchBar)
+            searchBar.snp.makeConstraints { make in
+                make.left.right.equalToSuperview()
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+                make.height.equalTo(view.frame.height / 18.5)
+            }
+            
+            notesList.snp.remakeConstraints { make in
+                make.left.right.equalToSuperview()
+                make.top.equalTo(searchBar.snp.bottom)
+                make.bottom.equalTo(bottomView.snp.top)
+            }
+            
+            searchBar.isHidden = false
+            searchBar.becomeFirstResponder()
+        } else {
+            searchBar.removeFromSuperview()
+            
+            notesList.snp.remakeConstraints { make in
+                make.left.right.equalToSuperview()
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+                make.bottom.equalTo(bottomView.snp.top)
+            }
+            
+            viewModel.filteredNotes = viewModel.notes
+            notesList.reloadData()
+        }
+    }
 }
 
 extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.notes.count
+        viewModel.filteredNotes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = notesList.dequeueReusableCell(withIdentifier: NoteCell.identifier, for: indexPath) as! NoteCell
-        let note = viewModel.notes[indexPath.row]
+        let note = viewModel.filteredNotes[indexPath.row]
         if let title = note.title, let content = note.content {
             cell.configureCell(with: title, content: content)
         } else {
             cell.configureCell(with: "", content: "")
         }
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -180,7 +229,22 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         let note = viewModel.notes[indexPath.row]
         let detailVC = NoteDetailViewController()
         detailVC.note = note
-        navigationController?.pushViewController(detailVC, animated: true)
+        
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+
+        UIView.animate(withDuration: 0.2, animations: {
+            cell.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        }) { _ in
+            UIView.animate(withDuration: 0.2, animations: {
+                cell.transform = CGAffineTransform.identity
+            }) { _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.09) {
+                    self.navigationController?.pushViewController(detailVC, animated: true)
+                }
+            }
+        }
+        
+        //        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: NoteCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -197,6 +261,13 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         view.frame.height / 10
+    }
+}
+
+extension NotesViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.filterNotes(with: searchText)
+        notesList.reloadData()
     }
 }
 

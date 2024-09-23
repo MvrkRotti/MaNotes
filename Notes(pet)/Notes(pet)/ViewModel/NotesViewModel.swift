@@ -15,12 +15,14 @@ enum SortType {
 
 class NotesViewModel {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistancContainer.viewContext
+    var filteredNotes: [Note] = []
     var notes: [Note] = []
     
     func fetchNotes() {
         let request: NSFetchRequest<Note> = Note.fetchRequest()
         do {
             notes = try context.fetch(request)
+            filteredNotes = notes
         } catch {
             print("Failed to fetch notes: \(error)")
         }
@@ -43,6 +45,17 @@ class NotesViewModel {
             notes.sort { $0.title?.localizedCaseInsensitiveCompare($1.title ?? "") == .orderedAscending }
         case .date:
             notes.sort { $0.createdDate ?? Date() < $1.createdDate ?? Date() }
+        }
+    }
+    
+    func filterNotes(with query: String) {
+        if query.isEmpty {
+            filteredNotes = notes
+        } else {
+            filteredNotes = notes.filter { note in
+                note.title?.lowercased().contains(query.lowercased()) ?? false ||
+                note.content?.lowercased().contains(query.lowercased()) ?? false
+            }
         }
     }
 }
