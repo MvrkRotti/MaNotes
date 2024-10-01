@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Notes(pet)
+
+  Created by Danil Pestov on 01.10.2024.
+  
+*/
+
+"notesTitle" = "Notes";
+"searchText" = "Search";
+"saveText" = "Save";
+"cancelText" = "Cancel";
+"deleteText" = "Delete";
+"titleText" = "Title";
+"noNotesText" = "Not one note yet. It’s time to add the first.";
+"sortNotesText" = "Sort notes";
+"chooseSort" = "Choose sort type";
+"byAlphabet" = "by alphabet";
+"byDate" = "by creation date";
+

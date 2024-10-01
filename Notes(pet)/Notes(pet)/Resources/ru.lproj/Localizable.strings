@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  Notes(pet)
+
+  Created by Danil Pestov on 01.10.2024.
+  
+*/
+
+"notesTitle" = "Заметки";
+"searchText" = "Найти";
+"saveText" = "Сохранить";
+"cancelText" = "Отмена";
+"deleteText" = "Удалить";
+"titleText" = "Заголовок";
+"noNotesText" = "Здесь пока что пусто. Самое время добавить первую заметку.";
+"sortNotesText" = "Сортировать заметки";
+"chooseSort" = "Выбрать тип сортировки";
+"byAlphabet" = "По алфавиту";
+"byDate" = "По дате создания";

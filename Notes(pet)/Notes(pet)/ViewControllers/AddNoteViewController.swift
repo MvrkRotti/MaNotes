@@ -16,7 +16,7 @@ final class AddNoteViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.boldSystemFont(ofSize: 24)
-        textField.placeholder = "Название/заголовок"
+        textField.placeholder = Const.titleText
         return textField
     }()
     
@@ -31,7 +31,7 @@ final class AddNoteViewController: UIViewController {
     
     private let saveButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Сохранить", for: .normal)
+        button.setTitle(Const.saveButtonTitle, for: .normal)
         button.setTitleColor(ColorResources.black, for: .normal)
         button.backgroundColor = ColorResources.darkGray
         button.layer.cornerRadius = 15

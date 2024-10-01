@@ -19,7 +19,7 @@ class NotesViewController: UIViewController {
     private let searchButton = BottomSideButton(type: .search)
     private let noDataLabel: UILabel = {
         let label = UILabel()
-        label.text = "Здесь пока что пусто. Самое время добавить первую заметку."
+        label.text = Const.noNotesLabel
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 18)
@@ -39,7 +39,7 @@ class NotesViewController: UIViewController {
     
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.placeholder = "Поиск"
+        searchBar.placeholder = Const.searchText
         searchBar.isHidden = true
         searchBar.layer.cornerRadius = 15
         searchBar.searchTextField.leftView = nil
@@ -71,7 +71,7 @@ class NotesViewController: UIViewController {
 private extension NotesViewController {
     //MARK: - SetupUI
     func setupUI() {
-        title = "Заметки"
+        title = Const.notesTitle
         
         view.backgroundColor = ColorResources.white
         
@@ -154,19 +154,19 @@ private extension NotesViewController {
     }
     
     @objc func showSortOptions() {
-        let actionSheet = UIAlertController(title: "Сортировать заметки", message: "Выберите способ сортировки", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: Const.sortTitle, message: Const.sortSubtitle, preferredStyle: .actionSheet)
         
-        let sortByTitleAction = UIAlertAction(title: "По алфавиту", style: .default) { [weak self] _ in
+        let sortByTitleAction = UIAlertAction(title: Const.alphabetSort, style: .default) { [weak self] _ in
             self?.viewModel.sortNotes(by: .title)
             self?.notesList.reloadData()
         }
         
-        let sortByDateAction = UIAlertAction(title: "По дате создания", style: .default) { [weak self] _ in
+        let sortByDateAction = UIAlertAction(title: Const.dateSort, style: .default) { [weak self] _ in
             self?.viewModel.sortNotes(by: .date)
             self?.notesList.reloadData()
         }
         
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: Const.cancelButtonTitle, style: .cancel, handler: nil)
         
         actionSheet.addAction(sortByDateAction)
         actionSheet.addAction(sortByTitleAction)
@@ -232,7 +232,7 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
 
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.1, animations: {
             cell.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
         }) { _ in
             UIView.animate(withDuration: 0.2, animations: {
@@ -256,7 +256,7 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "Удалить"
+        return Const.deleteButtonTitle
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
