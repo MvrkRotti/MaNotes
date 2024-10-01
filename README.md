@@ -1,1 +1,1 @@
-![Alt text](https://ltdfoto.ru/images/2024/10/01/Simulator-Screenshot---iPhone-12-Pro---2024-10-01-at-15.06.03.png) ![Alt text](https://ltdfoto.ru/images/2024/10/01/Simulator-Screenshot---iPhone-12-Pro---2024-10-01-at-15.06.40.png)
+![Alt text](https://ltdfoto.ru/images/2024/10/01/SNIMOK-EKRANA-2024-10-01-V-15.20.50.png)
