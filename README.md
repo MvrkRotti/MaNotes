@@ -1,1 +1,1 @@
-![Alt text](https://postimg.cc/Dmh7nz91/2b29ed73)
+![Alt text](https://ltdfoto.ru/images/2024/10/01/Simulator-Screenshot---iPhone-12-Pro---2024-10-01-at-15.06.03.png)
