@@ -1,1 +1,1 @@
-![Alt text](https://i.ibb.co/X526GMg/2024-09-22-19-18-15.png)
+![Alt text](https://postimg.cc/Dmh7nz91/2b29ed73)
