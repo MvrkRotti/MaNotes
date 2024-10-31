@@ -57,6 +57,7 @@ class NotesViewController: UIViewController {
         setupUI()
         setupLayout()
         setupAction()
+        setupHideKeyboardOnTap()
     }
     
     override func viewWillAppear(_ animated: Bool) {

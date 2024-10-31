@@ -55,6 +55,7 @@ final class NoteDetailViewController: UIViewController {
         setupLayout()
         setupAction()
         loadNoteData()
+        setupHideKeyboardOnTap()
     }
 }
 

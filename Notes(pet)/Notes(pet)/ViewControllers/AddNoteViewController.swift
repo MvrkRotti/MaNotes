@@ -45,6 +45,7 @@ final class AddNoteViewController: UIViewController {
         setupUI()
         setupLayout()
         setupAction()
+        setupHideKeyboardOnTap()
     }
 }
 

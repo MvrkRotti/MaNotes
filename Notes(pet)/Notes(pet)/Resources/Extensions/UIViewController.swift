@@ -20,4 +20,14 @@ extension UIViewController {
             make.left.right.top.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
+    func setupHideKeyboardOnTap() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
+    }
 }
