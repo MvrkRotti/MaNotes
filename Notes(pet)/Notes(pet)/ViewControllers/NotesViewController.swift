@@ -7,9 +7,8 @@
 
 import UIKit
 import SnapKit
-import SwipeCellKit
 
-class NotesViewController: UIViewController {
+final class NotesViewController: UIViewController {
 
     //MARK: - Variables
     

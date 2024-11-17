@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8A0873892CAC116B00DC5BD2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8A0873872CAC116B00DC5BD2 /* Localizable.strings */; };
 		8A0873902CAC193200DC5BD2 /* StringResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A08738F2CAC193200DC5BD2 /* StringResources.swift */; };
-		8A3448282CE8D942009B2CA3 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8A3448272CE8D942009B2CA3 /* SwipeCellKit */; };
 		8AD94CC72C9825E2001910D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD94CC62C9825E2001910D7 /* AppDelegate.swift */; };
 		8AD94CCB2C9825E2001910D7 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD94CCA2C9825E2001910D7 /* NotesViewController.swift */; };
 		8AD94CD02C9825E5001910D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AD94CCF2C9825E5001910D7 /* Assets.xcassets */; };
@@ -61,7 +60,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A3448282CE8D942009B2CA3 /* SwipeCellKit in Frameworks */,
 				8AD94CDC2C9827EA001910D7 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -186,7 +184,6 @@
 			name = "Notes(pet)";
 			packageProductDependencies = (
 				8AD94CDB2C9827EA001910D7 /* SnapKit */,
-				8A3448272CE8D942009B2CA3 /* SwipeCellKit */,
 			);
 			productName = "Notes(pet)";
 			productReference = 8AD94CC32C9825E2001910D7 /* Notes(pet).app */;
@@ -219,7 +216,6 @@
 			mainGroup = 8AD94CBA2C9825E2001910D7;
 			packageReferences = (
 				8AD94CDA2C9827EA001910D7 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				8A3448262CE8D942009B2CA3 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 			);
 			productRefGroup = 8AD94CC42C9825E2001910D7 /* Products */;
 			projectDirPath = "";
@@ -498,14 +494,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8A3448262CE8D942009B2CA3 /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwipeCellKit/SwipeCellKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.7.1;
-			};
-		};
 		8AD94CDA2C9827EA001910D7 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -517,11 +505,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8A3448272CE8D942009B2CA3 /* SwipeCellKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8A3448262CE8D942009B2CA3 /* XCRemoteSwiftPackageReference "SwipeCellKit" */;
-			productName = SwipeCellKit;
-		};
 		8AD94CDB2C9827EA001910D7 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8AD94CDA2C9827EA001910D7 /* XCRemoteSwiftPackageReference "SnapKit" */;
