@@ -7,9 +7,10 @@
 
 import UIKit
 import SnapKit
+import SwipeCellKit
 
 class NotesViewController: UIViewController {
-    
+
     //MARK: - Variables
     
     private let viewModel = NotesViewModel()
@@ -66,7 +67,7 @@ class NotesViewController: UIViewController {
         notesList.reloadData()
         checkData()
     }
-
+    
 }
 
 private extension NotesViewController {
@@ -209,6 +210,7 @@ private extension NotesViewController {
 }
 
 extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.filteredNotes.count
     }
@@ -232,7 +234,7 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         detailVC.note = note
         
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
-
+        
         UIView.animate(withDuration: 0.1, animations: {
             cell.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
         }) { _ in
@@ -244,16 +246,32 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-        
-        //        navigationController?.pushViewController(detailVC, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: NoteCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            viewModel.deleteNote(at: indexPath.row)
-            notesList.deleteRows(at: [indexPath], with: .automatic)
-            checkData()
-        }
+//    func tableView(_ tableView: UITableView, commit editingStyle: NoteCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            viewModel.deleteNote(at: indexPath.row)
+//            notesList.deleteRows(at: [indexPath], with: .automatic)
+//            checkData()
+//        }
+//    }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let removeAction = UIContextualAction(
+            style: .destructive,
+            title: nil,
+            handler: { [weak self] (ac: UIContextualAction, view: UIView, success: (Bool) -> Void) in
+                guard let self else { return }
+                viewModel.deleteNote(at: indexPath.row)
+                notesList.deleteRows(at: [indexPath], with: .automatic)
+                checkData()
+                success(true)
+            }
+        )
+        
+        removeAction.image = UIImage(named: "deleteIconImage")?.withTintColor(.red, renderingMode: .alwaysOriginal)
+        removeAction.backgroundColor = .white
+        
+        return UISwipeActionsConfiguration(actions: [removeAction])
     }
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
