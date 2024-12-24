@@ -100,7 +100,7 @@ private extension NotesViewController {
         
         bottomView.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview().inset(-2)
-            make.height.equalTo(view.frame.height / 10)
+            make.height.equalTo(view.frame.height / 9)
         }
         
         addNoteButton.snp.makeConstraints { make in
@@ -145,7 +145,7 @@ private extension NotesViewController {
     }
     
     @objc func addNote() {
-        let noteDetailVC = AddNoteViewController()
+        let noteDetailVC = AddNoteViewController(scanService: ScanServiceImpl())
         noteDetailVC.onNoteAdded = { [weak self] in
             self?.viewModel.fetchNotes()
             self?.notesList.reloadData()
@@ -234,7 +234,7 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         
-        UIView.animate(withDuration: 0.1, animations: {
+        UIView.animate(withDuration: 0.08, animations: {
             cell.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
         }) { _ in
             UIView.animate(withDuration: 0.2, animations: {

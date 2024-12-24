@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import VisionKit
 
 final class AddNoteViewController: UIViewController {
     
@@ -39,6 +40,19 @@ final class AddNoteViewController: UIViewController {
         return button
     }()
     
+    private var photoButton = UIBarButtonItem()
+    
+    private var scanService: ScanService
+    
+    init(scanService: ScanService) {
+        self.scanService = scanService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorResources.white
@@ -46,6 +60,20 @@ final class AddNoteViewController: UIViewController {
         setupLayout()
         setupAction()
         setupHideKeyboardOnTap()
+        
+        photoButton = UIBarButtonItem(
+            image: UIImage(systemName: "camera.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(openPhotoController)
+        )
+        
+        navigationItem.rightBarButtonItem = photoButton
+        
+        scanService.onChangedText = { [weak self] text in
+            guard let self = self else { return }
+                self.contentTextView.text += text
+        }
     }
 }
 
@@ -92,5 +120,27 @@ private extension AddNoteViewController {
         
         onNoteAdded?()
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func openPhotoController() {
+        showLangAlert { [weak self] action in
+            guard let self else { return }
+            self.openScan()
+        }
+    }
+    
+    private func openScan() {
+        let scanner = VNDocumentCameraViewController()
+        scanner.delegate = scanService
+        present(scanner, animated: true)
+    }
+    
+}
+
+private extension AddNoteViewController {
+    func showLangAlert(handler: @escaping ((UIAlertAction) -> Void)) {
+        let alert = UIAlertController(title: "Notice", message: "Text recognizer supports English, French, Italian, German, Spanish, Portuguese, and Chinese", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: handler))
+        present(alert, animated: true)
     }
 }
