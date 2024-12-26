@@ -36,11 +36,11 @@ class ScanServiceImpl: NSObject, ScanService {
     }()
     
     lazy var textRecognitionRequest: VNRecognizeTextRequest = {
-        let req = VNRecognizeTextRequest(completionHandler: self.handlerReq)
-        req.recognitionLevel = .accurate
-        req.minimumTextHeight = 0.01
-        req.recognitionLanguages = ["zh-Hans", "zh-Hant", "en-US"]
-        return req
+        let request = VNRecognizeTextRequest(completionHandler: self.handlerReq)
+        request.recognitionLevel = .accurate
+        request.minimumTextHeight = 0.01
+        request.recognitionLanguages = ["zh-Hans", "zh-Hant", "en-US"]
+        return request
     }()
     
     private func handlerReq(request: VNRequest?, error: Error?) {

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class NotesViewController: UIViewController {
-
+    
     //MARK: - Variables
     
     private let viewModel = NotesViewModel()
@@ -177,9 +177,12 @@ private extension NotesViewController {
     }
     
     @objc private func toggleSearchBaс() {
-        if searchBar.superview == nil {
-            view.addSubview(searchBar)
-            searchBar.snp.makeConstraints { make in
+        if searchBar.isHidden {
+            searchBar.isHidden = false
+            searchBar.alpha = 0
+            searchBar.transform = CGAffineTransform(translationX: 0, y: -20)
+            
+            searchBar.snp.remakeConstraints { make in
                 make.left.right.equalToSuperview()
                 make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
                 make.height.equalTo(view.frame.height / 18.5)
@@ -191,25 +194,37 @@ private extension NotesViewController {
                 make.bottom.equalTo(bottomView.snp.top)
             }
             
-            searchBar.isHidden = false
-            searchBar.becomeFirstResponder()
-        } else {
-            searchBar.removeFromSuperview()
-            
-            notesList.snp.remakeConstraints { make in
-                make.left.right.equalToSuperview()
-                make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-                make.bottom.equalTo(bottomView.snp.top)
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                self.searchBar.alpha = 1
+                self.searchBar.transform = .identity
+                self.view.layoutIfNeeded()
+            }) { _ in
+                self.searchBar.becomeFirstResponder()
             }
-            
-            viewModel.filteredNotes = viewModel.notes
-            notesList.reloadData()
+        } else {
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                self.searchBar.alpha = 0
+                self.searchBar.transform = CGAffineTransform(translationX: 0, y: -20)
+                
+                self.notesList.snp.remakeConstraints { make in
+                    make.left.right.equalToSuperview()
+                    make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+                    make.bottom.equalTo(self.bottomView.snp.top)
+                }
+                self.view.layoutIfNeeded()
+            }) { _ in
+                self.searchBar.isHidden = true
+                self.searchBar.resignFirstResponder()
+                self.viewModel.filteredNotes = self.viewModel.notes
+                self.notesList.reloadData()
+            }
         }
     }
+    
 }
 
 extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.filteredNotes.count
     }
@@ -234,7 +249,7 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         
-        UIView.animate(withDuration: 0.08, animations: {
+        UIView.animate(withDuration: 0.02, animations: {
             cell.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
         }) { _ in
             UIView.animate(withDuration: 0.2, animations: {
@@ -247,13 +262,13 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: NoteCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            viewModel.deleteNote(at: indexPath.row)
-//            notesList.deleteRows(at: [indexPath], with: .automatic)
-//            checkData()
-//        }
-//    }
+    //    func tableView(_ tableView: UITableView, commit editingStyle: NoteCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    //        if editingStyle == .delete {
+    //            viewModel.deleteNote(at: indexPath.row)
+    //            notesList.deleteRows(at: [indexPath], with: .automatic)
+    //            checkData()
+    //        }
+    //    }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let removeAction = UIContextualAction(
             style: .destructive,
